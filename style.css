@@ -1,0 +1,211 @@
+:root {
+  --night: #0b1633;
+  --crimson: #c8102e;
+  --paper: #f7f6f2;
+  --ink: #14182b;
+  --muted: #5d6377;
+  --blue: #003893;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% -10%, #1d3170 0, var(--night) 60%);
+  font-family: "Barlow", system-ui, sans-serif;
+  color: var(--ink);
+}
+
+.ticket {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  width: min(900px, 100%);
+  background: var(--paper);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+  position: relative;
+  /* notches where the stub tears off */
+  --notch: 14px;
+  -webkit-mask:
+    radial-gradient(
+        circle var(--notch) at calc(100% - 220px) 0,
+        #0000 98%,
+        #000
+      )
+      top/100% 51% no-repeat,
+    radial-gradient(
+        circle var(--notch) at calc(100% - 220px) 100%,
+        #0000 98%,
+        #000
+      )
+      bottom/100% 51% no-repeat;
+  mask:
+    radial-gradient(
+        circle var(--notch) at calc(100% - 220px) 0,
+        #0000 98%,
+        #000
+      )
+      top/100% 51% no-repeat,
+    radial-gradient(
+        circle var(--notch) at calc(100% - 220px) 100%,
+        #0000 98%,
+        #000
+      )
+      bottom/100% 51% no-repeat;
+}
+
+/* ---------- main body ---------- */
+.main {
+  padding: 32px 36px 28px;
+  border-left: 14px solid var(--crimson);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+.logo {
+  font-family: "Anton", Impact, sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  background: var(--blue);
+  color: #fff;
+  padding: 2px 14px;
+  border-radius: 4px;
+}
+.brand-text {
+  font-weight: 600;
+  font-size: 0.85rem;
+  line-height: 1.25;
+  color: var(--muted);
+}
+
+.match {
+  font-family: "Anton", Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 5.4vw, 3.6rem);
+  line-height: 1.02;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+}
+.match em {
+  font-style: normal;
+  font-family: "Barlow", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--crimson);
+  margin: 4px 0;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 20px;
+  margin: 28px 0 22px;
+  padding-top: 20px;
+  border-top: 2px dashed #c9c7bd;
+}
+.details .wide {
+  grid-column: 1/-1;
+}
+dt {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+dd {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.holder {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---------- stub ---------- */
+.stub {
+  background: var(--night);
+  color: #fff;
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  border-left: 2px dashed rgba(255, 255, 255, 0.35);
+}
+.stub-top {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.price {
+  font-family: "Anton", Impact, sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+}
+.stub-seat {
+  font-size: 0.9rem;
+  color: #b8c0dc;
+}
+
+.barcode {
+  height: 90px;
+  border-radius: 4px;
+  background-color: #fff;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #000 0 2px,
+    #fff 2px 4px,
+    #000 4px 5px,
+    #fff 5px 9px,
+    #000 9px 12px,
+    #fff 12px 14px,
+    #000 14px 15px,
+    #fff 15px 19px
+  );
+}
+.serial {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: #b8c0dc;
+  text-align: center;
+}
+
+/* ---------- mobile: stub moves below ---------- */
+@media (max-width: 680px) {
+  .ticket {
+    grid-template-columns: 1fr;
+    -webkit-mask: none;
+    mask: none;
+  }
+  .main {
+    padding: 24px 22px;
+    border-left-width: 10px;
+  }
+  .details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stub {
+    border-left: 0;
+    border-top: 2px dashed rgba(255, 255, 255, 0.35);
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+    padding: 0;
+  }
+  .ticket {
+    box-shadow: none;
+  }
+}
